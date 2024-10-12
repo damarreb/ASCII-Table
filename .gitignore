@@ -1,0 +1,17 @@
+# Java compile files
+*.class
+*.war
+*.ear
+
+# Log files
+*.log
+
+# Generated folders at compilation
+/bin/
+/build/
+/target/
+
+# VS Code files
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
