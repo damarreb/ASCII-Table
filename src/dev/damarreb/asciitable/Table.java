@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * that uses only one column.
  * </p>
  * @author David Marcos Rebolledo
- * @version 0.1.0
+ * @version 0.1.1
  * @see Cell
  */
 public class Table {
@@ -83,8 +83,9 @@ public class Table {
         String[] stringRows = new String[rows.length];
         for (int i = 0; i < rows.length; i++) {
             if (stringCells[i] == null){ // row == null => delimiter row
-                int totalWidth = Math.max(CELL_DELI.length()*(widths.length - 1),1);
+                int totalWidth = CELL_DELI.length()*(widths.length - 1);
                 for (int width : widths) totalWidth += width;
+                totalWidth = Math.max(totalWidth,1);
                 stringRows[i] = ROW_HEAD + DELIMITER_CHAR.repeat(totalWidth) + ROW_TAIL;
             } else 
                 stringRows[i] = ROW_HEAD + String.join(CELL_DELI, stringCells[i]) + ROW_TAIL;
