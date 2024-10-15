@@ -15,14 +15,15 @@ import java.util.ArrayList;
  * that uses only one column.
  * </p>
  * @author David Marcos Rebolledo
- * @version 0.1.1
+ * @version 0.2.0
  * @see Cell
  */
 public class Table {
-    final static String CELL_DELI = " | ";
-    final static String DELIMITER_CHAR = "-";
-    final static String ROW_HEAD = "| ";
-    final static String ROW_TAIL = " |";
+    public static String CELL_DELI = " | ";
+    public static char DELIMITER_CHAR = '-';
+    public static char PADDING_CHAR = ' ';
+    public static String ROW_HEAD = "| ";
+    public static String ROW_TAIL = " |";
     private Cell[][] rows;
 
 
@@ -75,8 +76,8 @@ public class Table {
                     cellWidth += widths[actualColumn+k];
                 actualColumn += (cell != null ? cell.getColumns() : 1);
                 stringCells[i][j] = (cell != null) ?
-                    padString(cell.getContent(), cellWidth, cell.getAlign()) :
-                    padString("", cellWidth, 0) ;
+                    padString(cell.getContent(), cellWidth, cell.getAlign(),PADDING_CHAR) :
+                    padString("", cellWidth, 0,PADDING_CHAR) ;
             }
         }
         /* Join stringCells => stringRows => table */
@@ -86,7 +87,7 @@ public class Table {
                 int totalWidth = CELL_DELI.length()*(widths.length - 1);
                 for (int width : widths) totalWidth += width;
                 totalWidth = Math.max(totalWidth,1);
-                stringRows[i] = ROW_HEAD + DELIMITER_CHAR.repeat(totalWidth) + ROW_TAIL;
+                stringRows[i] = ROW_HEAD + Character.toString(DELIMITER_CHAR).repeat(totalWidth) + ROW_TAIL;
             } else 
                 stringRows[i] = ROW_HEAD + String.join(CELL_DELI, stringCells[i]) + ROW_TAIL;
         }
@@ -255,17 +256,17 @@ public class Table {
     }
 
 
-    public static String padString(String x, int length, int align){
+    public static String padString(String x, int length, int align, char padCh){
         int spaces = length - x.length();
         if (spaces <= 0) return x;
         if (align < 0){ // left align
-            return x + " ".repeat(spaces);
+            return x + Character.toString(padCh).repeat(spaces);
         }
         else if (align > 0){ // right align
-            return " ".repeat(spaces) + x;
+            return Character.toString(padCh).repeat(spaces) + x;
         }
         else { // center align
-            return " ".repeat(Math.ceilDiv(spaces,2)) + x + " ".repeat(Math.floorDiv(spaces,2));
+            return Character.toString(padCh).repeat(Math.ceilDiv(spaces,2)) + x + Character.toString(padCh).repeat(Math.floorDiv(spaces,2));
         }
     }
 }
