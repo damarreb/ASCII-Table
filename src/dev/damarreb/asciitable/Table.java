@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * that uses only one column.
  * </p>
  * @author David Marcos Rebolledo
- * @version 0.2.1
+ * @version 0.2.2
  * @see Cell
  */
 public class Table {
@@ -193,7 +193,10 @@ public class Table {
                 if (row == null) continue; // row == null => delimiter row
                 int actualColumn = 0;
                 for (Cell cell : row) {
-                    if ((cell != null ? cell.getColumns() : 1) != cellColumns) continue;
+                    if ((cell != null ? cell.getColumns() : 1) != cellColumns){
+                        actualColumn += (cell != null ? cell.getColumns() : 1);
+                        continue;
+                    }
                     int length = (cell != null) ? Math.max(cell.getContent().length(), cell.getMinWidth())
                         - CELL_DELI.length()*(cellColumns-1) :
                         0;
