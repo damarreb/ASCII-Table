@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * that uses only one column.
  * </p>
  * @author David Marcos Rebolledo
- * @version 0.2.2
+ * @version 0.3.0
  * @see Cell
  */
 public class Table {
@@ -97,7 +97,7 @@ public class Table {
     /**
      * This method sets the align of the cells that belongs to a specific column
      * @param column The index of the column in the table.
-     * If the index is smaller than zero or greater than the number of rows,
+     * If the index is smaller than zero or greater than the number of columns,
      * the align is set to the last column.
      * @param align The align type to apply.
      * Smaller than zero means left align.
@@ -106,7 +106,7 @@ public class Table {
      */
     public void setColumnAlign(int column, int align){
         if (rows == null) return;
-        column = (column < 0) || (column > rows.length-1) ?
+        column = (column < 0) || (column > getColumns()-1) ?
             rows.length-1 : column;
         for (Cell[] row : rows){
             if (row == null) continue; // row == null => delimiter row
@@ -122,7 +122,7 @@ public class Table {
     /**
      * This method set the minimum width of the cells that belongs to a specific column
      * @param column The index of the column in the table.
-     * If the index is smaller than zero or greater than the number of rows,
+     * If the index is smaller than zero or greater than the number of columns,
      * the align is set to the last column. 
      * @param minWidth The minimum width to apply.
      * If it is lesser than zero, it will be replaced by zero.
@@ -130,7 +130,7 @@ public class Table {
     public void setColumnMinWidth(int column, int minWidth){
         if (rows == null) return;
         minWidth = minWidth < 0 ? 0 : minWidth; 
-        column = (column < 0) || (column > rows.length-1) ?
+        column = (column < 0) || (column > getColumns()-1) ?
             rows.length-1 : column;
         for (Cell[] row : rows){
             if (row == null) continue; // row == null => delimiter row
@@ -232,7 +232,7 @@ public class Table {
      * This method gets the number of columns in the table
      * @return an int with the number of columns in the table
      */
-    private int getColumns(){
+    public int getColumns(){
         if (rows == null || rows.length == 0) return 0; // void table
         int columns = 0;
         for (Cell[] row : rows) {

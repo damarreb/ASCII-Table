@@ -8,7 +8,7 @@ package dev.damarreb.asciitable;
  * the text align.
  *</p>
  * @author David Marcos Rebolledo
- * @version 0.1.0
+ * @version 0.2.0
  * @see Table
  */
 public class Cell {
@@ -43,7 +43,7 @@ public class Cell {
 
     // Getters and Setters
     public String getContent() {
-        return content;
+        return content != null ? content : "";
     }
 
     public int getColumns() {
